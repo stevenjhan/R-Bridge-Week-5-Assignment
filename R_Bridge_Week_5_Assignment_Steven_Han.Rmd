@@ -1,0 +1,61 @@
+---
+title: "R Bridge Week 5 Assignement"
+author: "Steven Han"
+date: "August ,10 2017"
+font: 8
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Assignment
+
+Exploratory Data Analysis in R. Choose an interesting dataset and use R graphics to describe the data. You may use base R graphics, or a graphics package of your choice. You should include at least one example of each of the following:  
+
+* histogram  
+* boxplot  
+* scatterplot  
+
+```{r loading_data, message = FALSE, warning = FALSE}
+
+library(readr)
+
+input_url <- "C:/Users/206108430/Desktop/GitHub-personal/R-Bridge-Week-5-Assignment/1039515.csv"
+assignment_5 <- read_delim(file = input_url, delim = ",", col_names = TRUE, na = c("-9999"))
+
+colnames(assignment_5) <- c("Station ID", "Station Name", "Elevation", "Latitude", "Longitude", "Date", "Precipitation", "Snow depth", "Snowfall", "Average temperature", "Maximum temperature", "Minimum temperature", "Average daily wind speed", "Direction of fastest 2-minute wind (degrees)", "Direction of fastest 5-second wind (degrees)", "Fastest 2-minute wind speed", "Fastest 5-second wind speed", "Weather Type: Fog, ice fog, or freezing fog (may include heavy fog)", "Weather Type: Glaze or rime", "Weather Type: Heavy fog or heaving freezing fog (not always distinguished from fog)", "Weather Type: Ice pellets, sleet, snow pellets, or small hail ", "Weather Type: Smoke or haze")
+
+assignment_5$Date <- as.Date(as.character(assignment_5$Date), "%Y%m%d")
+
+assignment_5
+
+```
+
+```{r histogram, message = FALSE, warning = FALSE}
+
+# library(ggplot2)
+
+hg_example <- ggplot(data=assignment_5) + geom_histogram(aes(x = cut), stat = "count") + facet_wrap(~color)
+hg_example
+
+```
+
+```{r boxplot, message = FALSE, warning = FALSE}
+
+# library(ggplot2)
+
+bp_example <- ggplot(data=assignment_5, aes(y = carat, x = cut)) + geom_boxplot()
+bp_example
+
+```
+
+```{r scatterplot, message = FALSE, warning = FALSE}
+
+# library(ggplot2)
+
+sp_example <- ggplot(data=assignment_5, aes(x = carat, y = price)) + geom_point()
+sp_example
+
+```
